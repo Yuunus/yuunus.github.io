@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning React: Common Pitfalls and Solutions | YuunusBlog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-text">YM</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../projects.html" class="nav-link">Projects</a>
+                <a href="../index.html#blog" class="nav-link">Blog</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-post-main">
+        <article class="blog-post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-category">Frontend</span>
+                    <span class="post-date">Sep 4, 2025</span>
+                </div>
+                <h1 class="post-title">Learning React: Common Pitfalls and Solutions</h1>
+                <div class="post-stats">
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        15 min read
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        127 views
+                    </span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p>When I started learning React, I was excited about its component-based architecture and declarative approach. However, my journey wasn't without its challenges. Here are the most common issues I encountered and how I solved them.</p>
+
+                <h2>1. State Management Confusion</h2>
+                <p>One of the first major hurdles was understanding when to use local state versus lifting state up. I found myself passing props through multiple levels, creating what's known as "prop drilling."</p>
+
+                <h3>The Problem</h3>
+                <p>Initially, I would keep all state at the component level, which made sharing data between siblings impossible without complex workarounds.</p>
+
+                <h3>The Solution</h3>
+                <p>I learned to identify when state should be lifted to the nearest common ancestor. For more complex state management, I eventually adopted Context API and later Redux Toolkit for global state.</p>
+
+                <h2>2. useEffect Infinite Loops</h2>
+                <p>Perhaps the most frustrating issue was creating infinite loops with useEffect. This usually happened when I forgot to properly specify dependencies.</p>
+
+                <h3>Common Mistakes</h3>
+                <ul>
+                    <li>Missing dependencies in the dependency array</li>
+                    <li>Objects and functions in dependencies that change on every render</li>
+                    <li>Not understanding when effects run</li>
+                </ul>
+
+                <h3>Best Practices</h3>
+                <p>Always use the ESLint plugin for React hooks, memoize functions with useCallback, and objects with useMemo when they're used as dependencies.</p>
+
+                <h2>3. Performance Issues</h2>
+                <p>As my applications grew, I noticed performance bottlenecks. Components were re-rendering unnecessarily, and my apps felt sluggish.</p>
+
+                <h3>Key Optimizations</h3>
+                <ul>
+                    <li>Used React.memo for expensive components</li>
+                    <li>Implemented proper key props in lists</li>
+                    <li>Avoided creating objects and functions in render</li>
+                    <li>Leveraged React DevTools Profiler</li>
+                </ul>
+
+                <h2>4. Testing Challenges</h2>
+                <p>Testing React components initially felt overwhelming. I struggled with what to test and how to test async operations.</p>
+
+                <h3>What Worked</h3>
+                <p>I focused on testing user interactions rather than implementation details. React Testing Library became my go-to tool, and I learned to test components as users would interact with them.</p>
+
+                <h2>Conclusion</h2>
+                <p>Learning React is a journey with inevitable challenges. The key is to understand the fundamental concepts thoroughly and practice consistently. Each pitfall taught me valuable lessons that made me a better React developer.</p>
+
+                <p>Remember: every expert was once a beginner. Embrace the learning process, and don't be afraid to make mistakes—they're often the best teachers.</p>
+            </div>
+
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Performance</span>
+                    <span class="tag">Hooks</span>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

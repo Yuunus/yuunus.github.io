@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting Up New Domains: A Complete Guide | YuunusBlog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-text">YM</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../projects.html" class="nav-link">Projects</a>
+                <a href="../index.html#blog" class="nav-link">Blog</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-post-main">
+        <article class="blog-post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-category">Infrastructure</span>
+                    <span class="post-date">Jun 20, 2025</span>
+                </div>
+                <h1 class="post-title">Setting Up New Domains: A Complete Guide</h1>
+                <div class="post-stats">
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        18 min read
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        156 views
+                    </span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p>Setting up a complete infrastructure around a new domain name involves multiple moving parts. After going through this process with several projects, I've developed a systematic approach that ensures security, performance, and maintainability from day one.</p>
+
+                <h2>Domain Registration</h2>
+                <p>The foundation of your online presence starts with choosing the right domain registrar and securing your domain properly.</p>
+
+                <h3>Choosing a Registrar</h3>
+                <p>For most cases, I prefer <strong>Namecheap</strong> as my go-to domain registrar. They offer:</p>
+                <ul>
+                    <li>Competitive pricing across a wide range of TLDs</li>
+                    <li>Solid customer support and user-friendly interface</li>
+                    <li>Free WHOIS privacy protection</li>
+                    <li>Reliable service with good uptime</li>
+                </ul>
+
+                <p>Other reputable options include Google Domains (now part of Squarespace), Cloudflare Registrar, and Gandi. The key factors to consider are pricing, security features, and ease of management.</p>
+
+                <h3>Security First</h3>
+                <p>Before anything else, enable <strong>Two-Factor Authentication (2FA)</strong> on your registrar account. Your domain registrar has complete control over your domain, making account security paramount. I also recommend:</p>
+                <ul>
+                    <li>Using a unique, strong password for your registrar account</li>
+                    <li>Enabling domain lock/transfer protection</li>
+                    <li>Setting up account notifications for any changes</li>
+                </ul>
+
+                <h3>Initial Configuration</h3>
+                <p>Once registered, immediately change the nameservers from the registrar's default to a proper DNS service. Don't worry about configuring DNS records yet—we'll handle that in the next section.</p>
+
+                <h2>DNS Management</h2>
+                <p>Proper DNS setup is crucial for performance, security, and flexibility. I strongly recommend separating DNS management from domain registration.</p>
+
+                <h3>Why Cloudflare?</h3>
+                <p><strong>Cloudflare</strong> is my preferred DNS provider for several reasons:</p>
+                <ul>
+                    <li><strong>Performance:</strong> World-class infrastructure with extremely fast propagation times</li>
+                    <li><strong>Cost:</strong> Free plan covers most needs perfectly</li>
+                    <li><strong>Features:</strong> Advanced features like proxy services, DDoS protection, and analytics</li>
+                    <li><strong>API Access:</strong> Robust API for automation and dynamic DNS scenarios</li>
+                </ul>
+
+                <h3>Essential DNS Records</h3>
+                <p>Here are the fundamental DNS records you'll need for most projects:</p>
+
+                <h4>A and AAAA Records</h4>
+                <pre><code>example.com        A     192.0.2.1
+www.example.com    A     192.0.2.1
+example.com        AAAA  2001:db8::1</code></pre>
+
+                <h4>CNAME for Subdomains</h4>
+                <pre><code>blog.example.com   CNAME example.com
+api.example.com    CNAME example.com</code></pre>
+
+                <h3>Root Domain CNAME Flattening</h3>
+                <p>One of Cloudflare's standout features is <strong>CNAME flattening</strong>. This allows you to point your root domain to services like Netlify or Vercel using a CNAME record, which is normally not allowed. This is incredibly useful for modern static site hosting.</p>
+
+                <h3>DNSSEC</h3>
+                <p>Enable DNSSEC for additional security. Cloudflare makes this easy with one-click activation. While not every service requires it, having DNSSEC enabled protects against DNS spoofing attacks.</p>
+
+                <h3>Dynamic DNS</h3>
+                <p>For homelab or development scenarios, Cloudflare's API integrates seamlessly with dynamic DNS solutions. Many routers, including OpenWRT, have built-in support for Cloudflare dynamic DNS updates.</p>
+
+                <h2>Static Web Hosting</h2>
+                <p>For most modern web applications, static hosting with a JAMstack approach offers unbeatable performance and simplicity.</p>
+
+                <h3>Netlify: The Modern Choice</h3>
+                <p><strong>Netlify</strong> has become my preferred platform for static site hosting:</p>
+
+                <h4>Setup Process</h4>
+                <ol>
+                    <li>Create your website (HTML, React, Vue, etc.)</li>
+                    <li>Push your code to GitHub/GitLab</li>
+                    <li>Connect Netlify to your repository</li>
+                    <li>Configure build settings (if needed)</li>
+                    <li>Set up custom domain with automatic HTTPS</li>
+                </ol>
+
+                <h4>Advanced Features</h4>
+                <ul>
+                    <li><strong>Continuous Deployment:</strong> Automatic builds on every push</li>
+                    <li><strong>Branch Previews:</strong> Test changes before merging</li>
+                    <li><strong>Edge Functions:</strong> Serverless functions at the edge</li>
+                    <li><strong>Form Handling:</strong> Built-in form processing</li>
+                    <li><strong>Analytics:</strong> Privacy-focused web analytics</li>
+                </ul>
+
+                <h3>Domain Configuration</h3>
+                <p>Setting up your custom domain on Netlify is straightforward:</p>
+                <ol>
+                    <li>In Netlify, go to Domain Management</li>
+                    <li>Add your custom domain</li>
+                    <li>Point your DNS records to Netlify's servers</li>
+                    <li>Enable automatic HTTPS (Let's Encrypt)</li>
+                </ol>
+
+                <h3>Alternative Platforms</h3>
+                <p>While Netlify is excellent, other platforms worth considering include:</p>
+                <ul>
+                    <li><strong>Vercel:</strong> Great for Next.js applications</li>
+                    <li><strong>GitHub Pages:</strong> Simple and free for open source projects</li>
+                    <li><strong>Cloudflare Pages:</strong> Integrated with Cloudflare's ecosystem</li>
+                </ul>
+
+                <h2>Email Configuration</h2>
+                <p>Professional email on your custom domain is essential for business credibility and communication.</p>
+
+                <h3>Fastmail: Professional Email Done Right</h3>
+                <p>While Google Workspace is popular, I prefer <strong>Fastmail</strong> for custom domain email:</p>
+
+                <h4>Why Fastmail?</h4>
+                <ul>
+                    <li><strong>Privacy-focused:</strong> Not an advertising company</li>
+                    <li><strong>Performance:</strong> Fast, reliable service</li>
+                    <li><strong>Features:</strong> Advanced filtering, custom domains, aliases</li>
+                    <li><strong>Standards-compliant:</strong> Works with any email client</li>
+                    <li><strong>Reasonable pricing:</strong> $5/month for individuals</li>
+                </ul>
+
+                <h3>DNS Configuration for Email</h3>
+                <p>Setting up email requires several DNS records:</p>
+
+                <h4>MX Records</h4>
+                <pre><code>example.com    MX    10    in1-smtp.messagingengine.com
+example.com    MX    20    in2-smtp.messagingengine.com</code></pre>
+
+                <h4>SPF Record</h4>
+                <pre><code>example.com    TXT   "v=spf1 include:spf.messagingengine.com ?all"</code></pre>
+
+                <h4>DKIM Records</h4>
+                <p>Fastmail provides specific DKIM records to add to your DNS for email authentication.</p>
+
+                <h4>DMARC Policy</h4>
+                <pre><code>_dmarc.example.com    TXT    "v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com"</code></pre>
+
+                <h3>Email Aliases and Forwarding</h3>
+                <p>One of Fastmail's great features is wildcard aliases. You can set up <code>*@example.com</code> to route to your main inbox, or create specific aliases for different purposes:</p>
+                <ul>
+                    <li><code>hello@example.com</code> - General inquiries</li>
+                    <li><code>support@example.com</code> - Customer support</li>
+                    <li><code>noreply@example.com</code> - System emails</li>
+                </ul>
+
+                <h2>SSL/TLS and Security</h2>
+                <p>Security should be built in from the ground up, not added as an afterthought.</p>
+
+                <h3>Automatic HTTPS</h3>
+                <p>Most modern hosting platforms provide automatic HTTPS via Let's Encrypt:</p>
+                <ul>
+                    <li>Netlify: Automatic with custom domains</li>
+                    <li>Vercel: Built-in for all deployments</li>
+                    <li>Cloudflare Pages: Automatic with Cloudflare certificates</li>
+                </ul>
+
+                <h3>Security Headers</h3>
+                <p>Implement proper security headers through your hosting platform or Cloudflare:</p>
+                <pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin</code></pre>
+
+                <h3>Content Security Policy</h3>
+                <p>Start with a basic CSP and gradually make it more restrictive:</p>
+                <pre><code>Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'</code></pre>
+
+                <h2>Monitoring and Maintenance</h2>
+                <p>Set up monitoring to ensure your infrastructure remains healthy and secure.</p>
+
+                <h3>Uptime Monitoring</h3>
+                <p>Use services like UptimeRobot or Pingdom to monitor your website availability and receive alerts if issues arise.</p>
+
+                <h3>SSL Certificate Monitoring</h3>
+                <p>While modern platforms handle certificate renewal automatically, it's wise to monitor certificate expiration dates as a backup.</p>
+
+                <h3>Domain Renewal Reminders</h3>
+                <p>Set up calendar reminders well in advance of domain renewal dates. Consider enabling auto-renewal where available.</p>
+
+                <h2>Backup and Recovery</h2>
+                <p>Even with reliable services, having a backup plan is essential.</p>
+
+                <h3>DNS Backup</h3>
+                <p>Export your DNS configuration regularly. Most providers offer export functionality for easy migration if needed.</p>
+
+                <h3>Website Backup</h3>
+                <p>For static sites, your Git repository serves as your backup. For dynamic sites, implement regular automated backups of both code and data.</p>
+
+                <h2>Cost Optimization</h2>
+                <p>Modern infrastructure can be very cost-effective if set up properly.</p>
+
+                <h3>Typical Costs</h3>
+                <ul>
+                    <li><strong>Domain:</strong> $10-15/year</li>
+                    <li><strong>DNS:</strong> Free (Cloudflare)</li>
+                    <li><strong>Hosting:</strong> Free (Netlify/Vercel starter plans)</li>
+                    <li><strong>Email:</strong> $60/year (Fastmail)</li>
+                    <li><strong>Monitoring:</strong> Free tier often sufficient</li>
+                </ul>
+
+                <p><strong>Total annual cost:</strong> Around $70-80 for a professional setup</p>
+
+                <h2>Automation and Infrastructure as Code</h2>
+                <p>As your projects grow, consider automating common tasks.</p>
+
+                <h3>DNS Automation</h3>
+                <p>Use Terraform or similar tools to manage DNS records as code:</p>
+                <pre><code>resource "cloudflare_record" "www" {
+  zone_id = var.cloudflare_zone_id
+  name    = "www"
+  value   = "example.com"
+  type    = "CNAME"
+  proxied = true
+}</code></pre>
+
+                <h3>CI/CD Integration</h3>
+                <p>Integrate domain setup into your CI/CD pipelines for consistent deployments across environments.</p>
+
+                <h2>Conclusion</h2>
+                <p>Setting up modern domain infrastructure doesn't have to be complicated or expensive. By choosing the right tools and following security best practices from the start, you can create a robust foundation for your online projects.</p>
+
+                <p>The key takeaways:</p>
+                <ul>
+                    <li><strong>Security first:</strong> Enable 2FA and use strong, unique passwords</li>
+                    <li><strong>Separate concerns:</strong> Use specialized services for DNS, hosting, and email</li>
+                    <li><strong>Automate where possible:</strong> Modern platforms handle most routine tasks automatically</li>
+                    <li><strong>Monitor everything:</strong> Set up alerts for critical services</li>
+                    <li><strong>Plan for growth:</strong> Choose services that can scale with your needs</li>
+                </ul>
+
+                <p>The modern web infrastructure landscape offers incredible capabilities at accessible prices. Take advantage of these tools to build something amazing.</p>
+            </div>
+
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">DNS</span>
+                    <span class="tag">Domains</span>
+                    <span class="tag">Infrastructure</span>
+                    <span class="tag">Security</span>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

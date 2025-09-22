@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuunus Mohamed | Fullstack Software Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <div id="particles-container"></div>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">YM</span>
+                <span class="logo-bracket">/&gt;</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-greeting">
+                        <span class="code-comment">// Welcome to my digital realm</span>
+                    </div>
+                    <h1 class="hero-title">
+                        <span class="keyword">const</span>
+                        <span class="variable">developer</span>
+                        <span class="operator">=</span>
+                        <span class="string">"Yuunus Mohamed"</span>
+                    </h1>
+                    <div class="hero-subtitle">
+                        <span class="keyword">class</span>
+                        <span class="class-name">FullstackSoftwareEngineer</span>
+                        <span class="bracket">{</span>
+                        <div class="method-indent">
+                            <span class="method">constructor</span><span class="bracket">(</span><span class="bracket">)</span> <span class="bracket">{</span>
+                            <div class="property-indent">
+                                <span class="keyword">this</span><span class="operator">.</span><span class="property">passion</span> <span class="operator">=</span> <span class="string">"Building extraordinary software"</span><span class="semicolon">;</span>
+                            </div>
+                            <span class="bracket">}</span>
+                        </div>
+                        <span class="bracket">}</span>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="projects.html" class="cta-button primary">
+                            <span>Explore My Work</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="resume.pdf" download="Yuunus_Mohamed_Resume.pdf" class="cta-button secondary">
+                            <span>Download Resume</span>
+                            <i class="fas fa-download"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="profile-container">
+                        <div class="profile-frame">
+                            <img src="profile.jpg" alt="Yuunus Mohamed" class="profile-image">
+                            <div class="profile-glow"></div>
+                        </div>
+                        <div class="code-floating">
+                            <div class="floating-code">
+                                <span class="keyword">function</span> <span class="function-name">innovate</span>() {
+                                <br>&nbsp;&nbsp;<span class="keyword">return</span> <span class="string">"∞"</span>;
+                                <br>}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="canvas-container">
+                        <canvas id="matrix-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="blog-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="code-comment">/* Latest Insights */</span>
+                    <br>Technical Blog
+                </h2>
+                <p class="section-description">Deep dives into software engineering, architecture patterns, and emerging technologies</p>
+            </div>
+
+            <div class="blog-grid">
+                <article class="blog-card featured" onclick="location.href='blog/learning-react-issues.html'" style="cursor: pointer;">
+                    <div class="card-header">
+                        <span class="post-category">Frontend</span>
+                        <span class="post-date">Sep 4, 2025</span>
+                    </div>
+                    <h3 class="post-title">Learning React: Common Pitfalls and Solutions</h3>
+                    <p class="post-excerpt">
+                        My journey learning React revealed several common issues that trip up developers.
+                        From state management headaches to performance bottlenecks, here's what I learned.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Performance</span>
+                        <span class="tag">Hooks</span>
+                    </div>
+                    <div class="post-stats">
+                        <span class="stat">
+                            <i class="fas fa-clock"></i>
+                            15 min read
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-eye"></i>
+                            127 views
+                        </span>
+                    </div>
+                </article>
+
+                <article class="blog-card" onclick="location.href='blog/building-scalable-web-apps.html'" style="cursor: pointer;">
+                    <div class="card-header">
+                        <span class="post-category">Architecture</span>
+                        <span class="post-date">Aug 10, 2025</span>
+                    </div>
+                    <h3 class="post-title">Building Scalable Web Applications</h3>
+                    <p class="post-excerpt">
+                        Strategies for creating web applications that can handle growth. From choosing the right
+                        architecture to implementing effective caching and database optimization techniques.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">Architecture</span>
+                        <span class="tag">Scalability</span>
+                        <span class="tag">Performance</span>
+                        <span class="tag">Database</span>
+                    </div>
+                    <div class="post-stats">
+                        <span class="stat">
+                            <i class="fas fa-clock"></i>
+                            12 min read
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-eye"></i>
+                            89 views
+                        </span>
+                    </div>
+                </article>
+
+                <article class="blog-card" onclick="location.href='blog/modern-javascript-best-practices.html'" style="cursor: pointer;">
+                    <div class="card-header">
+                        <span class="post-category">JavaScript</span>
+                        <span class="post-date">Jul 15, 2025</span>
+                    </div>
+                    <h3 class="post-title">Modern JavaScript Best Practices</h3>
+                    <p class="post-excerpt">
+                        Essential practices for writing clean, maintainable JavaScript code. Covering ES6+
+                        features, async patterns, testing strategies, and performance optimization.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">ES6+</span>
+                        <span class="tag">Clean Code</span>
+                        <span class="tag">Testing</span>
+                    </div>
+                    <div class="post-stats">
+                        <span class="stat">
+                            <i class="fas fa-clock"></i>
+                            10 min read
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-eye"></i>
+                            64 views
+                        </span>
+                    </div>
+                </article>
+
+                <article class="blog-card" onclick="location.href='blog/setting-up-new-domains.html'" style="cursor: pointer;">
+                    <div class="card-header">
+                        <span class="post-category">Infrastructure</span>
+                        <span class="post-date">Jun 20, 2025</span>
+                    </div>
+                    <h3 class="post-title">Setting Up New Domains: A Complete Guide</h3>
+                    <p class="post-excerpt">
+                        A comprehensive guide to setting up domain infrastructure from registration to
+                        production deployment, covering DNS, hosting, email, and security best practices.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">DNS</span>
+                        <span class="tag">Domains</span>
+                        <span class="tag">Infrastructure</span>
+                        <span class="tag">Security</span>
+                    </div>
+                    <div class="post-stats">
+                        <span class="stat">
+                            <i class="fas fa-clock"></i>
+                            18 min read
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-eye"></i>
+                            156 views
+                        </span>
+                    </div>
+                </article>
+
+                <article class="blog-card" onclick="location.href='blog/java-virtual-threads-guide.html'" style="cursor: pointer;">
+                    <div class="card-header">
+                        <span class="post-category">Java</span>
+                        <span class="post-date">Jun 18, 2024</span>
+                    </div>
+                    <h3 class="post-title">Java Virtual Threads: The Future of Concurrent Programming</h3>
+                    <p class="post-excerpt">
+                        Explore Java 21's revolutionary Virtual Threads feature. Learn how to build massively
+                        scalable applications with simplified concurrency patterns and structured concurrency.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">Virtual Threads</span>
+                        <span class="tag">Concurrency</span>
+                        <span class="tag">Java 21</span>
+                    </div>
+                    <div class="post-stats">
+                        <span class="stat">
+                            <i class="fas fa-clock"></i>
+                            14 min read
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-eye"></i>
+                            215 views
+                        </span>
+                    </div>
+                </article>
+
+                <article class="blog-card" onclick="location.href='blog/java-streams-performance-optimization.html'" style="cursor: pointer;">
+                    <div class="card-header">
+                        <span class="post-category">Java</span>
+                        <span class="post-date">May 22, 2024</span>
+                    </div>
+                    <h3 class="post-title">Java Streams Performance Optimization: Beyond the Basics</h3>
+                    <p class="post-excerpt">
+                        Master advanced performance optimization techniques for Java Streams. Learn when to use
+                        parallel streams, optimize collectors, and avoid common pitfalls that impact performance.
+                    </p>
+                    <div class="post-tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">Performance</span>
+                        <span class="tag">Streams</span>
+                        <span class="tag">Optimization</span>
+                    </div>
+                    <div class="post-stats">
+                        <span class="stat">
+                            <i class="fas fa-clock"></i>
+                            12 min read
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-eye"></i>
+                            128 views
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="code-comment">/* About Me */</span>
+                    <br>Fullstack Software Engineer & Problem Solver
+                </h2>
+                <p class="section-description">Over 5 years of experience architecting cloud-native applications and microservices systems</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-story">
+                    <div class="story-card">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Academic Foundation</h3>
+                        <div class="education-details">
+                            <div class="university-info">
+                                <div class="university-logo">
+                                    <img src="cityUniversity.png" alt="City University London" class="logo-image">
+                                </div>
+                                <div class="university-text">
+                                    <h4>City University London</h4>
+                                    <p class="degree">Bachelor of Science in Computer Science</p>
+                                    <p class="year">2021</p>
+                                    <p class="highlight">Final Project: Multilingual Auto-Translation Messaging App using Python, Java, and NLP algorithms</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Professional Journey</h3>
+                        <div class="career-timeline">
+                            <div class="timeline-item current">
+                                <div class="company-info">
+                                    <div class="company-logo">
+                                        <img src="m2aMedia.png" alt="M2A Media" class="logo-image">
+                                    </div>
+                                    <div class="company-text">
+                                        <h4>M2A Media - Software Engineer</h4>
+                                        <p class="duration">September 2022 - Present</p>
+                                        <ul class="achievements">
+                                            <li>🏗️ Architected cloud-native video processing platform handling 200% increase in streaming volume</li>
+                                            <li>⚡ Optimized media transcoding workflows, cutting processing costs by 35% and boosting throughput by 50%</li>
+                                            <li>📊 Developed real-time analytics dashboard facilitating proactive monitoring</li>
+                                            <li>🔄 Pioneered refactoring of legacy monolith into microservices, reducing technical debt by 40%</li>
+                                            <li>👥 Mentored 2 junior engineers and 3 interns on Agile practices and Python development</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="company-info">
+                                    <div class="company-logo">
+                                        <img src="m2aMedia.png" alt="M2A Media" class="logo-image">
+                                    </div>
+                                    <div class="company-text">
+                                        <h4>M2A Media - Software Engineer Intern</h4>
+                                        <p class="duration">May 2019 - September 2020</p>
+                                        <ul class="achievements">
+                                            <li>🔧 Developed API endpoints in Python with comprehensive testing, increasing code coverage by 25%</li>
+                                            <li>🏗️ Designed Infrastructure as Code (IaC) using Terraform for cloud resource automation</li>
+                                            <li>📊 Integrated monitoring tools (Prometheus, Grafana) for enhanced system visibility</li>
+                                            <li>🚀 Assisted DevOps team with CI/CD pipelines using Jenkins and Docker</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="card-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Technical Arsenal</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>Languages</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag python">Python</span>
+                                    <span class="skill-tag java">Java</span>
+                                    <span class="skill-tag sql">SQL</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Cloud Platforms</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag aws">AWS</span>
+                                    <span class="skill-tag azure">Azure</span>
+                                    <span class="skill-tag gcp">GCP</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>DevOps & Infrastructure</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag docker">Docker</span>
+                                    <span class="skill-tag k8s">Kubernetes</span>
+                                    <span class="skill-tag terraform">Terraform</span>
+                                    <span class="skill-tag ansible">Ansible</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>CI/CD & Automation</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag jenkins">Jenkins</span>
+                                    <span class="skill-tag gitlab">GitLab CI</span>
+                                    <span class="skill-tag codepipeline">AWS CodePipeline</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Monitoring & Observability</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag prometheus">Prometheus</span>
+                                    <span class="skill-tag grafana">Grafana</span>
+                                    <span class="skill-tag elk">ELK Stack</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Web Technologies</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag react">React</span>
+                                    <span class="skill-tag node">Node.js</span>
+                                    <span class="skill-tag api">API Design & Integration</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>Testing & Methodologies</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag testing">Unit & Integration Testing</span>
+                                    <span class="skill-tag agile">Agile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="card-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Key Achievements</h3>
+                        <div class="achievements-grid">
+                            <div class="achievement-item">
+                                <div class="achievement-number">200%</div>
+                                <p>Streaming Volume Increase Handled</p>
+                            </div>
+                            <div class="achievement-item">
+                                <div class="achievement-number">35%</div>
+                                <p>Processing Cost Reduction</p>
+                            </div>
+                            <div class="achievement-item">
+                                <div class="achievement-number">40%</div>
+                                <p>Technical Debt Reduction</p>
+                            </div>
+                            <div class="achievement-item">
+                                <div class="achievement-number">3+</div>
+                                <p>Years Experience</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="card-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Mentorship & Community</h3>
+                        <div class="mentorship-content">
+                            <p class="mentorship-intro">Passionate about nurturing the next generation of engineers and giving back to the tech community.</p>
+                            <div class="mentorship-highlights">
+                                <div class="mentorship-item">
+                                    <div class="mentorship-number">5+</div>
+                                    <div class="mentorship-text">
+                                        <h4>Engineers Mentored</h4>
+                                        <p>Guided junior engineers and interns through Agile practices, Python development, and career growth</p>
+                                    </div>
+                                </div>
+                                <div class="mentorship-item">
+                                    <div class="mentorship-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="mentorship-text">
+                                        <h4>Open for Mentorship</h4>
+                                        <p>Available to mentor junior developers, students, and career changers interested in software engineering, cloud architecture, and professional development</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mentorship-cta">
+                                <p>Interested in mentorship opportunities? Check out <a href="https://www.yuunus.co.uk" target="_blank" rel="noopener noreferrer">my mentoring services</a> or <a href="mailto:yuunus.mohamed@outlook.com?subject=Mentorship%20Opportunity">let's connect!</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="card-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Beyond Code</h3>
+                        <div class="interests-content">
+                            <p class="interests-intro">When I'm not architecting scalable solutions, I'm:</p>
+                            <div class="interests-grid">
+                                <div class="interest-item">
+                                    <i class="fas fa-code-branch"></i>
+                                    <span>Contributing to open-source projects</span>
+                                </div>
+                                <div class="interest-item">
+                                    <i class="fas fa-blog"></i>
+                                    <span>Writing technical blog posts</span>
+                                </div>
+                                <div class="interest-item">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <span>Participating in hackathons</span>
+                                </div>
+                                <div class="interest-item">
+                                    <i class="fas fa-running"></i>
+                                    <span>Running and hiking adventures</span>
+                                </div>
+                                <div class="interest-item">
+                                    <i class="fas fa-plane"></i>
+                                    <span>Exploring new cultures</span>
+                                </div>
+                                <div class="interest-item">
+                                    <i class="fas fa-chess"></i>
+                                    <span>Strategy board games</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-cta">
+                    <div class="cta-content">
+                        <h3>Let's Build Something Amazing</h3>
+                        <p>With over 5 years of experience in architecting cloud-native systems, I'm passionate about building scalable solutions that deliver real business impact. From optimizing video streaming platforms to mentoring engineering teams, I combine technical expertise with leadership to drive innovation.</p>
+                        <div class="cta-buttons">
+                            <a href="mailto:yuunus.mohamed@outlook.com" class="cta-button primary">
+                                <span>Get In Touch</span>
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="resume.pdf" download="Yuunus_Mohamed_Resume.pdf" class="cta-button secondary">
+                                <span>View Resume</span>
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <span class="code-comment">// Connect with me</span>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Yuunus" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/yuunus/" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://mastodon.social/@yuunus" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-mastodon"></i>
+                </a>
+                <a href="mailto:yuunus.mohamed@outlook.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

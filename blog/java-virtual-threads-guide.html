@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Virtual Threads: The Future of Concurrent Programming | YuunusBlog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-text">YM</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../projects.html" class="nav-link">Projects</a>
+                <a href="../index.html#blog" class="nav-link">Blog</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-post-main">
+        <article class="blog-post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-category">Java</span>
+                    <span class="post-date">Jun 18, 2024</span>
+                </div>
+                <h1 class="post-title">Java Virtual Threads: The Future of Concurrent Programming</h1>
+                <div class="post-stats">
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        14 min read
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        215 views
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-heart"></i>
+                        67 likes
+                    </span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p class="lead">Java 21's Virtual Threads represent one of the most significant advances in Java concurrency since the introduction of CompletableFuture. Let's explore how this game-changing feature simplifies concurrent programming and dramatically improves application scalability.</p>
+
+                <h2>The Platform Thread Problem</h2>
+                <p>Traditional Java applications create platform threads that map 1:1 to OS threads. This approach has fundamental limitations:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// Traditional approach - expensive thread creation
+ExecutorService executor = Executors.newFixedThreadPool(100);
+
+// Each task blocks an expensive OS thread
+for (int i = 0; i < 10000; i++) {
+    executor.submit(() -> {
+        try {
+            // Simulating I/O operation
+            Thread.sleep(1000);
+            // Process response
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    });
+}
+
+// Problem: 10,000 tasks but only 100 threads
+// Most tasks wait in queue, limiting throughput</code></pre>
+                </div>
+
+                <h2>Enter Virtual Threads</h2>
+                <p>Virtual threads are lightweight threads managed by the JVM, not the OS. They enable massive concurrency without the traditional overhead:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// Virtual threads - millions of concurrent tasks!
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+
+    // Launch 10,000 virtual threads effortlessly
+    for (int i = 0; i < 10000; i++) {
+        executor.submit(() -> {
+            try {
+                // When this virtual thread blocks...
+                Thread.sleep(1000);
+                // ...the carrier thread is freed for other work
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+    }
+
+} // All tasks complete efficiently</code></pre>
+                </div>
+
+                <h2>Virtual Thread Lifecycle</h2>
+                <p>Understanding how virtual threads work under the hood is crucial for effective usage:</p>
+
+                <div class="highlight-box">
+                    <h3>Virtual Thread States</h3>
+                    <ul>
+                        <li><strong>RUNNABLE:</strong> Ready to execute or currently executing</li>
+                        <li><strong>PINNED:</strong> Temporarily bound to carrier thread (avoid when possible)</li>
+                        <li><strong>PARKED:</strong> Waiting for condition (releases carrier thread)</li>
+                        <li><strong>TERMINATED:</strong> Completed execution</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <pre><code class="language-java">public class VirtualThreadDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        // Creating virtual threads
+        Thread vt1 = Thread.ofVirtual().name("vt-1").start(() -> {
+            System.out.println("Virtual thread: " + Thread.currentThread());
+        });
+
+        // Using thread builders for configuration
+        var factory = Thread.ofVirtual()
+            .name("worker-", 1)
+            .uncaughtExceptionHandler((t, e) ->
+                System.err.println("Thread " + t + " failed: " + e))
+            .factory();
+
+        Thread vt2 = factory.newThread(() -> {
+            // This virtual thread will be managed efficiently
+            performIoOperation();
+        });
+
+        vt1.join();
+        vt2.start();
+        vt2.join();
+    }
+}</code></pre>
+                </div>
+
+                <h2>When Virtual Threads Shine</h2>
+                <p>Virtual threads excel in I/O-intensive applications. Here's a real-world HTTP client example:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">public class ConcurrentHttpClient {
+
+    private final HttpClient httpClient = HttpClient.newBuilder()
+        .executor(Executors.newVirtualThreadPerTaskExecutor())
+        .build();
+
+    public CompletableFuture&lt;List&lt;String&gt;&gt; fetchAllUrls(List&lt;String&gt; urls) {
+
+        // Launch virtual thread for each HTTP request
+        List&lt;CompletableFuture&lt;String&gt;&gt; futures = urls.stream()
+            .map(this::fetchUrlAsync)
+            .toList();
+
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+            .thenApply(v -> futures.stream()
+                .map(CompletableFuture::join)
+                .toList());
+    }
+
+    private CompletableFuture&lt;String&gt; fetchUrlAsync(String url) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .build();
+
+                // Virtual thread handles blocking I/O efficiently
+                HttpResponse&lt;String&gt; response = httpClient.send(
+                    request, HttpResponse.BodyHandlers.ofString());
+
+                return response.body();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to fetch: " + url, e);
+            }
+        }, Executors.newVirtualThreadPerTaskExecutor());
+    }
+}</code></pre>
+                </div>
+
+                <h2>Virtual Threads vs Traditional Approaches</h2>
+                <p>Let's compare different concurrency models for a database-heavy application:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// 1. Traditional Thread Pool (Limited Scalability)
+public class TraditionalDbService {
+    private final ExecutorService executor =
+        Executors.newFixedThreadPool(50); // Limited!
+
+    public CompletableFuture&lt;User&gt; findUserAsync(Long id) {
+        return CompletableFuture.supplyAsync(() -> {
+            // Blocks expensive OS thread during DB query
+            return userRepository.findById(id);
+        }, executor);
+    }
+}
+
+// 2. Reactive Streams (Complex but Non-blocking)
+public class ReactiveDbService {
+
+    public Mono&lt;User&gt; findUserAsync(Long id) {
+        return Mono.fromCallable(() -> userRepository.findById(id))
+            .subscribeOn(Schedulers.boundedElastic())
+            .doOnNext(user -> logger.info("Found user: {}", user.getName()));
+    }
+}
+
+// 3. Virtual Threads (Simple + Scalable)
+public class VirtualThreadDbService {
+
+    public CompletableFuture&lt;User&gt; findUserAsync(Long id) {
+        return CompletableFuture.supplyAsync(() -> {
+            // Virtual thread parks during DB query
+            // Carrier thread serves other virtual threads
+            return userRepository.findById(id);
+        }, Executors.newVirtualThreadPerTaskExecutor());
+    }
+}</code></pre>
+                </div>
+
+                <h2>Avoiding Virtual Thread Pitfalls</h2>
+                <p>While virtual threads are powerful, there are important considerations:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">public class VirtualThreadPitfalls {
+
+    // ❌ BAD: Pinning virtual threads
+    public void avoidPinning() {
+        synchronized (this) { // Synchronized blocks pin virtual threads!
+            try {
+                Thread.sleep(1000); // Carrier thread blocked
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    // ✅ GOOD: Use locks that don't pin
+    private final ReentrantLock lock = new ReentrantLock();
+
+    public void betterConcurrency() {
+        lock.lock();
+        try {
+            Thread.sleep(1000); // Virtual thread parks, carrier freed
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    // ❌ BAD: CPU-intensive work in virtual threads
+    public void avoidCpuIntensiveWork() {
+        Thread.ofVirtual().start(() -> {
+            // Don't do this - virtual threads are for I/O!
+            for (int i = 0; i < 1_000_000_000; i++) {
+                Math.sqrt(i);
+            }
+        });
+    }
+
+    // ✅ GOOD: Use ForkJoinPool for CPU work
+    public void useForkJoinForCpu() {
+        ForkJoinPool.commonPool().submit(() -> {
+            // CPU-intensive work belongs here
+            IntStream.range(0, 1_000_000_000)
+                .parallel()
+                .mapToDouble(Math::sqrt)
+                .sum();
+        });
+    }
+}</code></pre>
+                </div>
+
+                <h2>Structured Concurrency</h2>
+                <p>Virtual threads pair beautifully with structured concurrency for clean, reliable concurrent code:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">public class StructuredConcurrencyExample {
+
+    public UserProfile fetchUserProfile(Long userId) throws InterruptedException {
+
+        try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+
+            // Launch related tasks concurrently
+            var userTask = scope.fork(() -> fetchUser(userId));
+            var prefsTask = scope.fork(() -> fetchPreferences(userId));
+            var statsTask = scope.fork(() -> fetchStatistics(userId));
+
+            // Wait for all to complete (or first failure)
+            scope.join().throwIfFailed();
+
+            // All tasks succeeded - build result
+            return new UserProfile(
+                userTask.resultNow(),
+                prefsTask.resultNow(),
+                statsTask.resultNow()
+            );
+        }
+    }
+
+    // Each method can block without concern - virtual threads handle it
+    private User fetchUser(Long id) {
+        return restTemplate.getForObject("/users/{id}", User.class, id);
+    }
+}</code></pre>
+                </div>
+
+                <h2>Performance Benchmarks</h2>
+                <div class="highlight-box">
+                    <h3>Virtual Threads vs Platform Threads</h3>
+                    <ul>
+                        <li><strong>Memory:</strong> Virtual threads use ~1KB vs ~2MB for platform threads</li>
+                        <li><strong>Creation:</strong> 1000x faster creation time</li>
+                        <li><strong>Scaling:</strong> Millions of virtual threads vs thousands of platform threads</li>
+                        <li><strong>Context switching:</strong> Near-zero cost for virtual threads</li>
+                    </ul>
+                </div>
+
+                <h2>Migration Strategy</h2>
+                <p>Gradually adopt virtual threads in your existing applications:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// Phase 1: Replace ExecutorService in I/O heavy services
+@Service
+public class ApiGateway {
+
+    // Before
+    // private final ExecutorService executor =
+    //     Executors.newFixedThreadPool(100);
+
+    // After
+    private final ExecutorService executor =
+        Executors.newVirtualThreadPerTaskExecutor();
+
+    // Same business logic, better scalability!
+}
+
+// Phase 2: Update Spring Boot configuration
+@Configuration
+public class VirtualThreadConfig {
+
+    @Bean
+    public TomcatProtocolHandlerCustomizer&lt;?&gt; protocolHandlerVirtualThreadExecutorCustomizer() {
+        return protocolHandler -> {
+            protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+        };
+    }
+}</code></pre>
+                </div>
+
+                <h2>Conclusion</h2>
+                <p>Virtual threads represent a paradigm shift in Java concurrency. They combine the simplicity of blocking I/O with the scalability of asynchronous programming, making highly concurrent applications more accessible to developers.</p>
+
+                <p>Key takeaways:</p>
+                <ul>
+                    <li>Virtual threads excel for I/O-intensive workloads</li>
+                    <li>Avoid pinning with synchronized blocks and native calls</li>
+                    <li>Use structured concurrency for robust concurrent operations</li>
+                    <li>Migration can be gradual and low-risk</li>
+                </ul>
+
+                <p>The future of Java concurrency is here, and it's more accessible than ever.</p>
+
+                <div class="post-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Virtual Threads</span>
+                    <span class="tag">Concurrency</span>
+                    <span class="tag">Performance</span>
+                    <span class="tag">Java 21</span>
+                </div>
+            </div>
+        </article>
+
+        <div class="post-navigation">
+            <a href="../index.html#blog" class="nav-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blog
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/yuunusmohamed" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/yuunusmohamed" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:contact@yuunusmohamed.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 2024 Yuunus Mohamed. Built with passion for clean code.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

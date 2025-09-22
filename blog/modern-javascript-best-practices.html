@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern JavaScript Best Practices | YuunusBlog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-text">YM</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../projects.html" class="nav-link">Projects</a>
+                <a href="../index.html#blog" class="nav-link">Blog</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-post-main">
+        <article class="blog-post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-category">JavaScript</span>
+                    <span class="post-date">Jul 15, 2025</span>
+                </div>
+                <h1 class="post-title">Modern JavaScript Best Practices</h1>
+                <div class="post-stats">
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        10 min read
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        64 views
+                    </span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p>JavaScript has evolved significantly over the years. With ES6+ features becoming standard and new tools emerging, it's important to stay current with best practices that lead to cleaner, more maintainable code.</p>
+
+                <h2>ES6+ Features to Embrace</h2>
+                <p>Modern JavaScript offers powerful features that can make your code more expressive and efficient.</p>
+
+                <h3>Destructuring Assignment</h3>
+                <p>Use destructuring to extract values from objects and arrays cleanly:</p>
+                <pre><code>const { name, email } = user;
+const [first, second] = items;</code></pre>
+
+                <h3>Template Literals</h3>
+                <p>Replace string concatenation with template literals for better readability:</p>
+                <pre><code>const message = `Hello ${name}, you have ${count} unread messages`;</code></pre>
+
+                <h3>Arrow Functions</h3>
+                <p>Use arrow functions for cleaner syntax, but understand when to use regular functions for proper `this` binding.</p>
+
+                <h2>Async/Await vs Promises</h2>
+                <p>While both handle asynchronous operations, async/await provides cleaner, more readable code.</p>
+
+                <h3>Error Handling</h3>
+                <p>Always wrap async operations in try-catch blocks:</p>
+                <pre><code>async function fetchUserData(id) {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw error;
+  }
+}</code></pre>
+
+                <h2>Code Organization Patterns</h2>
+                <p>Structure your code for maintainability and reusability.</p>
+
+                <h3>Modules</h3>
+                <p>Use ES6 modules to organize code into logical, reusable units:</p>
+                <pre><code>// utils.js
+export const formatDate = (date) => { /* ... */ };
+export const validateEmail = (email) => { /* ... */ };
+
+// main.js
+import { formatDate, validateEmail } from './utils.js';</code></pre>
+
+                <h3>Pure Functions</h3>
+                <p>Write functions that are predictable and testable:</p>
+                <ul>
+                    <li>Given the same inputs, always return the same output</li>
+                    <li>No side effects</li>
+                    <li>Don't mutate input parameters</li>
+                </ul>
+
+                <h2>Performance Optimization</h2>
+                <p>Write efficient code that performs well in production environments.</p>
+
+                <h3>Avoid Memory Leaks</h3>
+                <ul>
+                    <li>Remove event listeners when components unmount</li>
+                    <li>Clear timers and intervals</li>
+                    <li>Be cautious with closures that capture large objects</li>
+                </ul>
+
+                <h3>Lazy Loading</h3>
+                <p>Use dynamic imports for code splitting and better initial load times:</p>
+                <pre><code>const module = await import('./heavyModule.js');</code></pre>
+
+                <h3>Debouncing and Throttling</h3>
+                <p>Control function execution frequency for expensive operations like API calls or DOM manipulations.</p>
+
+                <h2>Testing Strategies</h2>
+                <p>Write testable JavaScript code from the beginning.</p>
+
+                <h3>Unit Testing</h3>
+                <p>Test individual functions in isolation. Jest is a popular choice for JavaScript testing:</p>
+                <pre><code>test('formatDate formats date correctly', () => {
+  const date = new Date('2023-12-25');
+  expect(formatDate(date)).toBe('December 25, 2023');
+});</code></pre>
+
+                <h3>Integration Testing</h3>
+                <p>Test how different parts of your application work together, especially API interactions and user workflows.</p>
+
+                <h2>Code Quality Tools</h2>
+                <p>Use tools to maintain consistent code quality across your project.</p>
+
+                <h3>ESLint</h3>
+                <p>Configure ESLint with appropriate rules for your project. Popular configurations include Airbnb and Standard.</p>
+
+                <h3>Prettier</h3>
+                <p>Automate code formatting to maintain consistent style across your team.</p>
+
+                <h3>TypeScript</h3>
+                <p>Consider TypeScript for larger projects to catch errors early and improve developer experience with better IDE support.</p>
+
+                <h2>Security Considerations</h2>
+                <p>Write secure JavaScript code to protect against common vulnerabilities.</p>
+
+                <h3>Input Validation</h3>
+                <p>Always validate and sanitize user input, both on the client and server side.</p>
+
+                <h3>Avoid eval()</h3>
+                <p>Never use `eval()` or similar functions that execute strings as code, as they can introduce security vulnerabilities.</p>
+
+                <h3>Content Security Policy</h3>
+                <p>Implement CSP headers to prevent XSS attacks and control resource loading.</p>
+
+                <h2>Documentation and Comments</h2>
+                <p>Write code that tells a story and is easy for others (and future you) to understand.</p>
+
+                <h3>JSDoc</h3>
+                <p>Use JSDoc comments for function documentation:</p>
+                <pre><code>/**
+ * Calculates the total price including tax
+ * @param {number} basePrice - The base price before tax
+ * @param {number} taxRate - The tax rate as a decimal
+ * @returns {number} The total price including tax
+ */
+function calculateTotal(basePrice, taxRate) {
+  return basePrice * (1 + taxRate);
+}</code></pre>
+
+                <h2>Conclusion</h2>
+                <p>Modern JavaScript development is about more than just syntax—it's about writing maintainable, performant, and secure code. Stay curious, keep learning, and always consider the long-term maintainability of your code.</p>
+
+                <p>Remember that the best practices evolve with the language and ecosystem. Stay updated with the latest developments and adapt these practices to your specific project needs.</p>
+            </div>
+
+            <footer class="post-footer">
+                <div class="post-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">ES6+</span>
+                    <span class="tag">Clean Code</span>
+                    <span class="tag">Testing</span>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

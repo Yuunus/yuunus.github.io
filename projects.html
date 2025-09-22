@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Yuunus Mohamed | Senior Software Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <div id="particles-container"></div>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">YM</span>
+                <span class="logo-bracket">/&gt;</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link active">Projects</a>
+                <a href="index.html#blog" class="nav-link">Blog</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="projects-section">
+            <div class="section-header">
+                <h1 class="section-title">
+                    <span class="code-comment">/* My Portfolio */</span>
+                    <br>Featured Projects
+                </h1>
+                <p class="section-description">A showcase of innovative solutions I've built, from real-time messaging systems to AI-powered applications</p>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card featured">
+                    <div class="project-image">
+                        <div class="project-preview">
+                            <i class="fas fa-language project-icon"></i>
+                            <div class="project-animation">
+                                <div class="message-bubble">Hello!</div>
+                                <div class="message-bubble translated">¡Hola!</div>
+                                <div class="message-bubble">مرحبا!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h2 class="project-title">Auto-Translating Messaging App</h2>
+                            <span class="project-status">Final Year Project</span>
+                        </div>
+                        <p class="project-description">
+                            A revolutionary real-time messaging platform that automatically translates conversations between users speaking different languages. Built as my university final project using Python for the backend, Java for the mobile client, and advanced NLP algorithms for accurate translation.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>Real-time translation with 95% accuracy</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-globe"></i>
+                                <span>Support for 15+ languages</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-users"></i>
+                                <span>Multi-user group conversations</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-brain"></i>
+                                <span>Custom NLP pipeline for context awareness</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag java">Java</span>
+                            <span class="tech-tag">WebSocket</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">SQLite</span>
+                            <span class="tech-tag">Android</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="project-button primary" disabled>
+                                <i class="fas fa-code"></i>
+                                <span>Private Repository</span>
+                            </button>
+                            <button class="project-button secondary">
+                                <i class="fas fa-play"></i>
+                                <span>View Demo</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <div class="project-preview">
+                            <i class="fas fa-chart-line project-icon"></i>
+                            <div class="project-animation">
+                                <div class="chart-bar" style="height: 60%;"></div>
+                                <div class="chart-bar" style="height: 80%;"></div>
+                                <div class="chart-bar" style="height: 45%;"></div>
+                                <div class="chart-bar" style="height: 90%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">CloudWatch Analytics Dashboard</h3>
+                            <span class="project-status">Production</span>
+                        </div>
+                        <p class="project-description">
+                            A comprehensive real-time analytics dashboard for monitoring cloud infrastructure performance. Features customizable widgets, automated alerting, and machine learning-powered anomaly detection to help teams proactively identify and resolve issues.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Real-time metrics visualization</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-bell"></i>
+                                <span>Intelligent alerting system</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-robot"></i>
+                                <span>ML-powered anomaly detection</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag react">React</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag aws">AWS CloudWatch</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag">Lambda</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="project-button primary" disabled>
+                                <i class="fas fa-lock"></i>
+                                <span>Private Code</span>
+                            </button>
+                            <button class="project-button secondary">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Case Study</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <div class="project-preview">
+                            <i class="fas fa-microchip project-icon"></i>
+                            <div class="project-animation">
+                                <div class="neural-network">
+                                    <div class="neuron"></div>
+                                    <div class="neuron"></div>
+                                    <div class="neuron"></div>
+                                    <div class="connection"></div>
+                                    <div class="connection"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">AI-Powered Code Review Assistant</h3>
+                            <span class="project-status">Open Source</span>
+                        </div>
+                        <p class="project-description">
+                            An intelligent code review tool that leverages machine learning to automatically detect code smells, security vulnerabilities, and performance bottlenecks. Integrates seamlessly with GitHub and provides detailed explanations and suggestions for improvements.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Security vulnerability detection</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-search"></i>
+                                <span>Code smell identification</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Educational explanations</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag docker">Docker</span>
+                            <span class="tech-tag">GitHub API</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="project-button primary">
+                                <i class="fab fa-github"></i>
+                                <span>View Source</span>
+                            </button>
+                            <button class="project-button secondary">
+                                <i class="fas fa-rocket"></i>
+                                <span>Try Demo</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card coming-soon">
+                    <div class="project-image">
+                        <div class="project-preview">
+                            <i class="fas fa-rocket project-icon"></i>
+                            <div class="project-animation">
+                                <div class="pulse-effect"></div>
+                                <div class="neural-network">
+                                    <div class="neuron active"></div>
+                                    <div class="neuron active"></div>
+                                    <div class="neuron active"></div>
+                                    <div class="connection active"></div>
+                                    <div class="connection active"></div>
+                                </div>
+                                <div class="floating-elements">
+                                    <div class="floating-chip">🧠</div>
+                                    <div class="floating-chip">⚡</div>
+                                    <div class="floating-chip">🔍</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="coming-soon-overlay">
+                            <span class="coming-soon-badge">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">Neural Code Intelligence Platform</h3>
+                            <span class="project-status">In Development</span>
+                        </div>
+                        <p class="project-description">
+                            A revolutionary AI-powered development platform that understands codebases at a semantic level. Using advanced neural networks and graph-based analysis, it provides intelligent code completion, automated refactoring suggestions, and real-time architecture optimization for enterprise applications.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-brain"></i>
+                                <span>Semantic code understanding with 98% accuracy</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-magic"></i>
+                                <span>Intelligent refactoring recommendations</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Real-time architecture visualization</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-lightning-bolt"></i>
+                                <span>Automated performance optimization</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Zero-day vulnerability prediction</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-globe"></i>
+                                <span>Multi-language support (20+ languages)</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">Transformers</span>
+                            <span class="tech-tag">GraphQL</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">Neo4j</span>
+                            <span class="tech-tag rust">Rust</span>
+                            <span class="tech-tag react">React</span>
+                            <span class="tech-tag">WebAssembly</span>
+                        </div>
+                        <div class="project-progress">
+                            <div class="progress-info">
+                                <span class="progress-label">Development Progress</span>
+                                <span class="progress-percentage">67%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                            </div>
+                            <div class="progress-milestones">
+                                <div class="milestone completed">
+                                    <i class="fas fa-check"></i>
+                                    <span>Core Neural Architecture</span>
+                                </div>
+                                <div class="milestone completed">
+                                    <i class="fas fa-check"></i>
+                                    <span>Code Graph Generation</span>
+                                </div>
+                                <div class="milestone current">
+                                    <i class="fas fa-cog fa-spin"></i>
+                                    <span>Semantic Analysis Engine</span>
+                                </div>
+                                <div class="milestone upcoming">
+                                    <i class="fas fa-clock"></i>
+                                    <span>VS Code Integration</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="project-button primary disabled">
+                                <i class="fas fa-lock"></i>
+                                <span>Early Access Q2 2026</span>
+                            </button>
+                            <button class="project-button secondary notify-me">
+                                <i class="fas fa-bell"></i>
+                                <span>Notify Me</span>
+                            </button>
+                        </div>
+                        <div class="project-preview-features">
+                            <h4>🎯 What makes this special?</h4>
+                            <ul>
+                                <li><strong>Context-Aware AI:</strong> Unlike existing tools, it understands business logic and domain context</li>
+                                <li><strong>Proactive Insights:</strong> Predicts issues before they occur, not just after code is written</li>
+                                <li><strong>Team Intelligence:</strong> Learns from team patterns and coding styles</li>
+                                <li><strong>Enterprise Scale:</strong> Handles codebases with millions of lines efficiently</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="projects-cta">
+                <div class="cta-content">
+                    <h3>Interested in Collaborating?</h3>
+                    <p>I'm always excited to work on innovative projects that solve real-world problems. Whether it's building scalable systems, exploring new technologies, or mentoring teams, let's create something amazing together.</p>
+                    <div class="cta-buttons">
+                        <a href="mailto:yuunus.mohamed@outlook.com?subject=Project%20Collaboration" class="cta-button primary">
+                            <span>Let's Collaborate</span>
+                            <i class="fas fa-handshake"></i>
+                        </a>
+                        <a href="index.html#about" class="cta-button secondary">
+                            <span>Learn More About Me</span>
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <span class="code-comment">// Connect with me</span>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Yuunus" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/yuunus/" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://mastodon.social/@yuunus" class="social-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-mastodon"></i>
+                </a>
+                <a href="mailto:yuunus.mohamed@outlook.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

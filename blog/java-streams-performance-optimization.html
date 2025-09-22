@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Streams Performance Optimization | YuunusBlog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-weight='bold' fill='%233b82f6'%3EYM%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="../index.html">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-text">YM</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../projects.html" class="nav-link">Projects</a>
+                <a href="../index.html#blog" class="nav-link">Blog</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-post-main">
+        <article class="blog-post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-category">Java</span>
+                    <span class="post-date">May 22, 2024</span>
+                </div>
+                <h1 class="post-title">Java Streams Performance Optimization: Beyond the Basics</h1>
+                <div class="post-stats">
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        12 min read
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-eye"></i>
+                        128 views
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-heart"></i>
+                        42 likes
+                    </span>
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p class="lead">Java Streams have revolutionized how we process collections, but mastering their performance characteristics is crucial for building efficient applications. Let's dive deep into optimization strategies that can dramatically improve your stream operations.</p>
+
+                <h2>The Stream Performance Landscape</h2>
+                <p>While Streams offer elegant functional programming constructs, they come with overhead that traditional loops don't have. Understanding when and how to optimize is key to leveraging their power effectively.</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// Inefficient: Multiple intermediate operations
+List&lt;String&gt; result = employees.stream()
+    .filter(emp -&gt; emp.getDepartment().equals("Engineering"))
+    .map(Employee::getName)
+    .filter(name -&gt; name.length() &gt; 5)
+    .collect(toList());
+
+// Optimized: Combined filtering
+List&lt;String&gt; result = employees.stream()
+    .filter(emp -&gt; emp.getDepartment().equals("Engineering")
+                 &amp;&amp; emp.getName().length() &gt; 5)
+    .map(Employee::getName)
+    .collect(toList());</code></pre>
+                </div>
+
+                <h2>Parallel Streams: When They Shine</h2>
+                <p>Parallel streams can provide significant performance benefits, but only under the right conditions. The key factors are:</p>
+
+                <ul>
+                    <li><strong>Data Size:</strong> Generally need 10,000+ elements to see benefits</li>
+                    <li><strong>CPU Cores:</strong> More cores = better parallelization potential</li>
+                    <li><strong>Operation Cost:</strong> Expensive operations benefit more from parallelization</li>
+                    <li><strong>Data Structure:</strong> ArrayList performs better than LinkedList for parallel operations</li>
+                </ul>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// CPU-intensive operation - good candidate for parallel
+List&lt;ComplexResult&gt; results = largeDataSet.parallelStream()
+    .map(this::performComplexCalculation)
+    .collect(toList());
+
+// Simple operation - parallel overhead not worth it
+List&lt;String&gt; names = smallList.stream()  // Use sequential
+    .map(Employee::getName)
+    .collect(toList());</code></pre>
+                </div>
+
+                <h2>Collector Performance Patterns</h2>
+                <p>The choice of collector can significantly impact performance. Here are some optimized patterns:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// Efficient grouping with downstream optimization
+Map&lt;Department, Set&lt;String&gt;&gt; employeesByDept = employees.stream()
+    .collect(groupingBy(
+        Employee::getDepartment,
+        mapping(Employee::getName, toSet())
+    ));
+
+// Custom collector for specific use cases
+Collector&lt;Employee, ?, Double&gt; averageSalaryCollector =
+    Collector.of(
+        () -&gt; new double[2], // {sum, count}
+        (acc, emp) -&gt; {
+            acc[0] += emp.getSalary();
+            acc[1]++;
+        },
+        (acc1, acc2) -&gt; {
+            acc1[0] += acc2[0];
+            acc1[1] += acc2[1];
+            return acc1;
+        },
+        acc -&gt; acc[0] / acc[1]
+    );</code></pre>
+                </div>
+
+                <h2>Memory-Efficient Stream Operations</h2>
+                <p>Large datasets require careful memory management. Here's how to avoid OutOfMemoryError:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">// Memory-efficient processing of large files
+try (Stream&lt;String&gt; lines = Files.lines(Paths.get("large-file.txt"))) {
+    long count = lines
+        .filter(line -&gt; line.contains("ERROR"))
+        .mapToLong(line -&gt; parseLogSize(line))
+        .sum();
+} // Auto-closes the stream
+
+// Avoid collecting everything into memory
+boolean hasLargeFiles = Files.walk(directory)
+    .filter(Files::isRegularFile)
+    .anyMatch(path -&gt; {
+        try {
+            return Files.size(path) &gt; LARGE_FILE_THRESHOLD;
+        } catch (IOException e) {
+            return false;
+        }
+    });</code></pre>
+                </div>
+
+                <h2>Benchmarking Your Optimizations</h2>
+                <p>Always measure performance improvements. Here's a simple benchmark framework:</p>
+
+                <div class="code-block">
+                    <pre><code class="language-java">public class StreamBenchmark {
+
+    @Benchmark
+    public List&lt;String&gt; traditionalLoop(Blackhole bh) {
+        List&lt;String&gt; result = new ArrayList&lt;&gt;();
+        for (Employee emp : employees) {
+            if (emp.getSalary() &gt; 50000) {
+                result.add(emp.getName().toUpperCase());
+            }
+        }
+        return result;
+    }
+
+    @Benchmark
+    public List&lt;String&gt; streamVersion(Blackhole bh) {
+        return employees.stream()
+            .filter(emp -&gt; emp.getSalary() &gt; 50000)
+            .map(emp -&gt; emp.getName().toUpperCase())
+            .collect(toList());
+    }
+}</code></pre>
+                </div>
+
+                <h2>Real-World Performance Tips</h2>
+                <div class="highlight-box">
+                    <h3>Pro Tips for Production Code</h3>
+                    <ul>
+                        <li>Use <code>Stream.generate()</code> for infinite streams with <code>limit()</code></li>
+                        <li>Prefer <code>findFirst()</code> over <code>findAny()</code> for deterministic results</li>
+                        <li>Cache expensive method references when possible</li>
+                        <li>Consider <code>IntStream</code>, <code>LongStream</code> for primitive operations</li>
+                        <li>Use <code>stream.unordered()</code> before <code>distinct()</code> for better performance</li>
+                    </ul>
+                </div>
+
+                <h2>Conclusion</h2>
+                <p>Java Streams are powerful tools that can make code more readable and maintainable. However, performance optimization requires understanding their internals, measuring actual performance, and choosing the right approach for your specific use case.</p>
+
+                <p>Remember: premature optimization is the root of all evil, but understanding these patterns will help you write efficient stream code from the start.</p>
+
+                <div class="post-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Performance</span>
+                    <span class="tag">Streams</span>
+                    <span class="tag">Optimization</span>
+                    <span class="tag">Functional Programming</span>
+                </div>
+            </div>
+        </article>
+
+        <div class="post-navigation">
+            <a href="../index.html#blog" class="nav-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blog
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/yuunusmohamed" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/yuunusmohamed" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:contact@yuunusmohamed.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="footer-text">
+                <p>&copy; 2024 Yuunus Mohamed. Built with passion for clean code.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
